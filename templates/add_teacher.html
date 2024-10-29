@@ -1,0 +1,104 @@
+{% extends 'nav.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+    }
+    .container {
+        width: 400px;
+        padding: 20px;
+        margin: 50px auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 100px;
+    }
+    h2 {
+        text-align: center;
+        color: #00bcd4;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .submit-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #00bcd4;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .submit-btn:hover {
+        background-color: #0097a7;
+    }
+   
+</style>
+<body >
+
+    <div class="container">
+        <h2>Teacher Registration</h2>
+        
+    
+        <form method="post" action="{% url 'add_teacherdb' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" placeholder="Enter first Name" name="fname" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Enter last Name" name="lname" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Enter user Name" name="uname" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Enter password" name="pwd" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Confirm password" name="cpwd" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Address" name="address" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Enter Age" name="age" required>
+            </div>
+            <div class="form-group">
+                <input type="email" placeholder="Enter email address" name="email" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Contact number" name="num" required>
+            </div>
+            
+            <div class="form-group">
+                <select class="form-control" name="sel">
+                    {% for c in courses %}
+                    <option value="{{c.id}}">{{c.course_name}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Upload your photo</label>
+                <input type="file" name="file" required>
+            </div>
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+        
+    </div>
+</div>
+</body>
+
+{% endblock %}

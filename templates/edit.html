@@ -1,0 +1,91 @@
+{% extends 'nav.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+    }
+    .container {
+        width: 400px;
+        padding: 20px;
+        margin: 50px auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 100px;
+    }
+    h2 {
+        text-align: center;
+        color: #00bcd4;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .submit-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #00bcd4;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .submit-btn:hover {
+        background-color: #0097a7;
+    }
+   
+</style>
+<body >
+
+    <div class="container">
+        <h2>Edit Student details</h2>
+        
+    
+        <form method="post" action="{% url 'edit_db' students.id %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" placeholder="Enter Name" name="ename" value="{{students.student_name}}" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Address" name="eaddress" value="{{students.student_address}}" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Enter Age" name="eage" value="{{students.student_age}}" required>
+            </div>
+            <div class="form-group">
+                <input type="date" placeholder="joining date" name="ejdate" value="{{students.joining_date|date:'Y-m-d'}}" required>
+            </div>
+            
+            <div class="form-group">
+                <select class="form-control" name="sel">
+                    {% for c in courses %}
+                    {% if c.id == student.course.id %}
+                        <option value="{{ c.id }}" selected> {{ c.course_name }}</option>
+                    
+                        {% else %}
+                        <option value="{{ c.id }}">{{ c.course_name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            
+
+            <button type="submit" class="submit-btn">Update</button>
+        </form>
+        
+    </div>
+</div>
+</body>
+{% endblock %}

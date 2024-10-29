@@ -1,0 +1,146 @@
+{% extends 'nav.html' %}
+{% block content %}
+{% load static %}
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa; 
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            margin-top: 100px;
+            color: #007bff; 
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .table {
+            width: 90%; 
+            margin: 0 auto; 
+            background-color: #ffffff; 
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+            border-radius: 8px; 
+        }
+
+        th {
+            background-color: #007bff;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1; 
+        }
+
+        .teacher-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%; 
+        }
+
+        .action-links a {
+            margin-right: 10px;
+            color: #dc3545;
+            text-decoration: none; 
+        }
+
+        .action-links a:hover {
+            text-decoration: underline; /* Underline on hover for clarity */
+        }
+        .message-box {
+            padding: 15px;
+            margin-top: 100px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .message-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .message-error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+   <div class="container">
+       <h1>Teachers Details</h1>
+       {% if messages %}
+       <div>
+           {% for message in messages %}
+               <div class="message-box message-success">
+                   <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+                   {{ message }}
+               </div>
+           {% endfor %}
+       </div>
+   {% endif %}
+   
+   <!-- Your existing form or content -->
+   
+   <script>
+       // Optionally, you can automatically close the message after a few seconds
+       setTimeout(function() {
+           const messageBox = document.querySelector('.message-box');
+           if (messageBox) {
+               messageBox.style.display = 'none';
+           }
+       }, 5000); // 5 seconds
+   </script>
+       <table class="table table-bordered">
+           <thead>
+               <tr>
+                   <th>ID</th>
+                   <th>Name</th>
+                   <th>Address</th>
+                   <th>Email</th>
+                   <th>Age</th>
+                   <th>Course</th>
+                   <th>Image</th>
+                   <th>Action</th>
+               </tr>
+           </thead>
+           <tbody>
+               {% for t in teachers %}
+               <tr>
+                   <td>{{ t.id }}</td>
+                   <td>{{ t.user.username }}</td>
+                   <td>{{ t.address }}</td>
+                   <td>{{ t.user.email }}</td>
+                   <td>{{ t.age }}</td>
+                   <td>{{ t.course.course_name }}</td>
+                   <td>
+                       <!-- Only display image if it exists -->
+                       {% if t.image and t.image.url %}
+                           <img src="{{ t.image.url }}" alt="Teacher Image" class="teacher-image">
+                       {% else %}
+                           <p>No image available</p> 
+                       {% endif %}
+                   </td>
+                   <td class="action-links">
+                       <a href="{% url 'th_delete' t.id %}">Delete</a>
+                   </td> 
+               </tr>
+               {% endfor %}
+           </tbody>
+       </table>
+   </div>
+</body>
+{% endblock %}

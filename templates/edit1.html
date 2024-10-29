@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Student Details</title>
+    
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+        .container {
+            width: 400px;
+            padding: 20px;
+            margin: 50px auto;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-top: 100px;
+        }
+        h2 {
+            text-align: center;
+            color: #00bcd4;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-bottom: 10px; /* Added margin for spacing */
+            transition: background-color 0.3s ease; /* Smooth transition */
+        }
+        .submit-btn:hover {
+            background-color: #0097a7;
+        }
+        .success-message {
+            background-color: #d4edda; /* Light green background */
+            color: #155724; /* Dark green text */
+            border: 1px solid #c3e6cb; /* Light green border */
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 20px;
+            text-align: center; /* Center the text */
+            font-size: 16px; /* Font size for the message */
+        }
+        .back-btn {
+            background-color: #6c757d; /* Grey background */
+            margin-top: 10px; /* Space above the button */
+        }
+        .back-btn:hover {
+            background-color: #5a6268; 
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Edit Student Details</h2>
+        {% if messages %}
+        <div>
+            {% for message in messages %}
+                <div class="success-message">
+                    {{ message }}
+                </div>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <form method="post" action="{% url 'edit1_db' teacher.id %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="fname" value="{{teacher.user.first_name}}" required placeholder="First Name">
+            </div>
+            <div class="form-group">
+                <input type="text" name="lname" value="{{teacher.user.last_name}}" required placeholder="Last Name">
+            </div>
+            <div class="form-group">
+                <input type="text" name="uname" value="{{teacher.user.username}}" required placeholder="Username">
+            </div>
+            <div class="form-group">
+                <input type="text" name="address" value="{{teacher.address}}" required placeholder="Address">
+            </div>
+            <div class="form-group">
+                <input type="text" name="age" value="{{teacher.age}}" required placeholder="Age">
+            </div>
+            <div class="form-group">
+                <input type="email" name="email" value="{{teacher.user.email}}" required placeholder="Email Address">
+            </div>
+            <div class="form-group">
+                <input type="text" name="num" value="{{teacher.contact}}" required placeholder="Contact Number">
+            </div>
+            
+            <div class="form-group">
+                <select class="form-control" name="sel">
+                    {% for c in courses %}
+                        <option value="{{ c.id }}" {% if c.id == teacher.course.id %}selected{% endif %}>
+                            {{ c.course_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            
+            <div class="form-group">
+                <img src="{{ teacher.image.url }}" alt="Image" width="120" height="120">
+            </div>
+            <input type="file" name="image" class="form-control" accept="image/*">
+
+            <button type="submit" class="submit-btn">Update</button>
+           
+        </form>
+        
+    </div>
+</body>
+</html>

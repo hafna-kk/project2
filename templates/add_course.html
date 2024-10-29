@@ -1,0 +1,127 @@
+{% extends 'nav.html' %}
+{% block content %}
+{% load static %}
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: azure;
+    }
+    .container {
+        width: 400px;
+        padding: 20px;
+        margin: 50px auto;
+        background-color: #ffffff;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        margin-top: 100px;
+    }
+    h2 {
+        text-align: center;
+        color: #00bcd4;
+    }
+    .form-group {
+        margin-bottom: 15px;
+    }
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+    .form-group input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+    .submit-btn {
+        width: 100%;
+        padding: 10px;
+        background-color: #00bcd4;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+    }
+    .submit-btn:hover {
+        background-color: #0097a7;
+    }
+    .login-link {
+        text-align: center;
+        margin-top: 10px;
+    }
+    .login-link a {
+        color: #00bcd4;
+    }
+    .message-box {
+            padding: 15px;
+            margin-top: 100px;
+            border: 1px solid transparent;
+            border-radius: 4px;
+            font-size: 16px;
+            width: 100%;
+        }
+
+        .message-success {
+            background-color: #d4edda;
+            border-color: #c3e6cb;
+            color: #155724;
+        }
+
+        .message-error {
+            background-color: #f8d7da;
+            border-color: #f5c6cb;
+            color: #721c24;
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 20px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+</style>
+<body >
+    {% if messages %}
+    <div>
+        {% for message in messages %}
+            <div class="message-box message-success">
+                <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+                {{ message }}
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+<!-- Your existing form or content -->
+
+<script>
+    // Optionally, you can automatically close the message after a few seconds
+    setTimeout(function() {
+        const messageBox = document.querySelector('.message-box');
+        if (messageBox) {
+            messageBox.style.display = 'none';
+        }
+    }, 5000); // 5 seconds
+</script>
+    <div class="container">
+        <h2>Add Course</h2>
+        
+    
+        <form method="post" action="{% url 'add_course1' %}">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" placeholder="Enter Course" name="Course" required>
+            </div>
+            <div class="form-group">
+                <input type="text" placeholder="Enter course fee" name="fee" required>
+            </div>
+            <div class="form-group">
+            
+            <button type="submit" class="submit-btn">Submit</button>
+        </form>
+        
+    </div>
+</div>
+</body>
+
+{% endblock %}

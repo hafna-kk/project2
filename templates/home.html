@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-image: url(https://image.slidesdocs.com/responsive-images/background/college-entrance-examination-graduation-season-powerpoint-background_af9f48b1e9__960_540.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* Wrapper for the two sections */
+        .wrapper {
+            display: flex;
+            width: 100%;
+            max-width: 1200px;
+            margin-top: 20px;
+            justify-content: space-between;
+            align-items: flex-start; /* Align items to the start */
+        }
+
+        /* Left Section (Top-aligned content) */
+        .left-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            color: #333;
+            padding: 30px;
+            margin-top: 10px;
+        }
+
+        .university-name {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #131313; /* Darker color for visibility */
+            margin-bottom: 10px; /* Reduced margin */
+        }
+
+        .quote {
+            font-size: 1.4rem;
+            color: #056e7e; /* Darker color */
+            margin-bottom: 20px; /* Reduced margin */
+            font-style: italic;
+        }
+
+        .signup-btn {
+            padding: 12px 30px;
+            background-color: #ffcc00;
+            color: #333;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .signup-btn:hover {
+            background-color: #ffb300;
+        }
+
+        /* Right Section (Centered login form) */
+        .right-section {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100%; /* Ensure it takes full height */
+        }
+
+        .container {
+            width: 400px;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h2 {
+            text-align: center;
+            padding-bottom: 30px;
+            color: #00bcd4;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 10px;
+            background-color: #00bcd4;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .submit-btn:hover {
+            background-color: #0097a7;
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Wrapper to hold both sections -->
+    <div class="wrapper">
+        <!-- Left Section: University name, quote, signup button -->
+        <div class="left-section">
+            <div class="university-name">Stanford University</div>
+            <div class="quote">"The only limit to our realization of tomorrow is our doubts of today." - Franklin D. Roosevelt</div>
+            <div><button type="button" class="signup-btn"><a href="{% url 'add_teacher' %}" style="text-decoration: none;">Sign Up</a></button></div>
+        </div>
+
+        <!-- Right Section: Login Form -->
+        <div class="right-section">
+            <div class="container">
+                <h2>Login</h2>
+                <div>
+                    {% for message in messages %}
+                        <div class="alert alert-danger mt-5">{{message}}</div>
+                    {% endfor %}
+                </div>
+
+                <form method="post" action="{% url 'loginpage' %}">
+                    {% csrf_token %}
+                    
+                    <div class="form-group">
+                        <input type="text" placeholder="Username" name="uname" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <input type="password" placeholder="Password" name="pwd" required>
+                    </div>
+                    
+                    <button type="submit" class="submit-btn">Login</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
